@@ -14,7 +14,6 @@ export default function Posts() {
     }
     fetchData()
   }, [info.cat,info.username])
-  console.log(lists)
   return (
     <div className="posts">
       {lists.map((list,i)=>{

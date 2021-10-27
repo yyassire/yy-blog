@@ -15,7 +15,6 @@ export default function SinglePost() {
  useEffect(() => {
   const fetchData = async ()=>{
      const res = await axiosInstance.get(`/post/single/${id}`)
-     console.log(res.data)
      setPost(res.data)
   }
   fetchData()
@@ -26,14 +25,14 @@ export default function SinglePost() {
     dispatch(update({username:post.username,cat:null}))
     history.push("/")
    }
-  //  VARIABLES
-  const header = {headers:{ token: `Bearer ${userCredential[1]}` }}
 
    if(!post){
      return <h1>LOADING...</h1>
    }
    const handleDelete = async()=>{
 try {
+  const header = {headers:{ token: `Bearer ${userCredential[1]}` }}
+
    await axiosInstance.delete(`/post/${post._id}`,header)
    history.push("/")
   
@@ -53,7 +52,7 @@ try {
         />}
         <h1 className="singlePostTitle">
           {post.title}
-          {userCredential[0].username === post.username &&   <div className="singlePostEdit">
+          {userCredential && userCredential[0].username === post.username &&   <div className="singlePostEdit">
           
           <Link  to={`/edit/${post._id}`}> <i className="singlePostIconEdit far fa-edit">
             </i>
