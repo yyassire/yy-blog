@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import "./write.css";
 import storage from '../../firebase/firebaseConfig';
-import axios from "axios"
 import {categoriesSelect} from "../../assets/data"
 import {useSelector} from "react-redux"
 import {postImag} from "../../assets/images"
+import { axiosInstance } from "../../config";
 
 
 export default function Write() {
@@ -34,7 +34,7 @@ export default function Write() {
   }
   const handleSubmit = async (e)=>{
   e.preventDefault()
-  const res = await axios.post("/post",{title,desc:story,photo:url ?url:"",username:userCredential[0].username,category:categoryRef.current.value})
+  const res = await axiosInstance.post("/post",{title,desc:story,photo:url ?url:"",username:userCredential[0].username,category:categoryRef.current.value})
   res.data && window.location.replace("/")
   }
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./register.css"
-import axios from "axios"
 import { Link, useHistory } from "react-router-dom"
+import { axiosInstance } from "../../config"
 
 export default function Register() {
   const [username,setUsername] = useState("")
@@ -12,7 +12,7 @@ export default function Register() {
   const handleSubmit = async (e)=>{
     e.preventDefault()
     try {
-      const res = await axios.post("/auth/register",{username,email,password})
+      const res = await axiosInstance.post("/auth/register",{username,email,password})
       res.data && history.push("/login")
     } catch (error) {
       console.log(error)

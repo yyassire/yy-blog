@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {noImage} from "../../assets/images"
 import {useState } from "react";
 import storage from "../../firebase/firebaseConfig";
-import axios from "axios";
 import {logout, updateCredential } from "../../redux/userSlice";
 import {useHistory} from "react-router-dom"
+import { axiosInstance } from "../../config";
 export default function Settings() {
 
   // HOOKS
@@ -41,13 +41,13 @@ const handleFileLoad = (value)=>{
 }
 }
 const handleDelete = async()=>{
-  const res  = await axios.delete(`/user/${userCredential[0]._id}`,header)
+  const res  = await axiosInstance.delete(`/user/${userCredential[0]._id}`,header)
   res.data === "account deleted successfully" && dispatch(logout())
   res.data === "account deleted successfully" && history.push("/")
 }
 const handleSubmit = async(e)=>{
   e.preventDefault()
-  const res = await axios.put(`/user/${userCredential[0]._id}`,body,header)
+  const res = await axiosInstance.put(`/user/${userCredential[0]._id}`,body,header)
   res.data && dispatch(updateCredential(res.data))
   res.data && history.push("/")
 }

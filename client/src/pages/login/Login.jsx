@@ -2,8 +2,8 @@ import "./login.css";
 import {useDispatch} from "react-redux"
 import { useState } from "react";
 import { fetchingError, fetchingStart, fetchingSuccess } from "../../redux/userSlice";
-import axios from "axios";
 import {Link} from "react-router-dom"
+import { axiosInstance } from "../../config";
 
 
 export default function Login() {
@@ -15,7 +15,7 @@ export default function Login() {
 e.preventDefault()
 email && password && dispatch(fetchingStart())
 try {
-  const res = await axios.post("/auth/login",{email,password})
+  const res = await axiosInstance.post("/auth/login",{email,password})
   dispatch(fetchingSuccess(res.data))
 } catch (error) {
   dispatch(fetchingError())

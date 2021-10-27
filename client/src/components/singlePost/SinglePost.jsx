@@ -4,8 +4,8 @@ import { format } from 'timeago.js';
 import { update } from "../../redux/postSlice";
 import {useHistory} from "react-router-dom"
 import "./singlePost.css";
-import axios from "axios"
 import { useEffect, useState } from "react";
+import { axiosInstance } from "../../config";
 
 export default function SinglePost() {
   const userCredential = useSelector(state => state.user.userCredential)
@@ -14,7 +14,7 @@ export default function SinglePost() {
   const id =  location.pathname.split("/")[2]
  useEffect(() => {
   const fetchData = async ()=>{
-     const res = await axios.get(`/post/single/${id}`)
+     const res = await axiosInstance.get(`/post/single/${id}`)
      console.log(res.data)
      setPost(res.data)
   }
@@ -34,7 +34,7 @@ export default function SinglePost() {
    }
    const handleDelete = async()=>{
 try {
-   await axios.delete(`/post/${post._id}`,header)
+   await axiosInstance.delete(`/post/${post._id}`,header)
    history.push("/")
   
 } catch (error) {

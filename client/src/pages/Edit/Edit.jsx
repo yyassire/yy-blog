@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import "./edit.css";
 import storage from '../../firebase/firebaseConfig';
-import axios from "axios"
 import {categoriesSelect} from "../../assets/data"
 import {useSelector} from "react-redux"
 import {postImag} from "../../assets/images"
 import { useLocation } from "react-router-dom";
+import { axiosInstance } from "../../config";
 
 export default function Edit() {
   const location = useLocation()
@@ -14,7 +14,7 @@ export default function Edit() {
  const id =  location.pathname.split("/")[2]
  useEffect(() => {
   const fetchData = async ()=>{
-     const res = await axios.get(`/post/single/${id}`)
+     const res = await axiosInstance.get(`/post/single/${id}`)
      console.log(res.data)
      setPost(res.data)
   }
@@ -50,7 +50,7 @@ export default function Edit() {
   const header = {headers:{ token: `Bearer ${userCredential[1]}` }}
 
   e.preventDefault()
-  const res = await axios.put("/post/"+id,{title,desc:story,photo:url ?url:"",username:userCredential[0].username,category:categoryRef.current.value ?categoryRef.current.value:post.category},header)
+  const res = await axiosInstance.put("/post/"+id,{title,desc:story,photo:url ?url:"",username:userCredential[0].username,category:categoryRef.current.value ?categoryRef.current.value:post.category},header)
   res.data && window.location.replace("/")
   }
   return (
