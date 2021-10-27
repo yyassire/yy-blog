@@ -1,5 +1,9 @@
 import axios from "axios"
 
+// export const axiosInstance = axios.create({
+//     baseURL:"https://yy-blog.herokuapp.com/api/"
+// })
+
 export const axiosInstance = axios.create({
-    baseURL:"https://yy-blog.herokuapp.com/api/"
+    baseURL:"http://localhost:8800/api/"
 })

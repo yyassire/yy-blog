@@ -5,9 +5,12 @@ const PostRoute = require("./routes/posts")
 require('dotenv').config()
 const UserRoute = require("./routes/users")
 const path = require("path")
+const cors = require("cors")
 
 const app = express()
 app.use(express.json());
+app.use(cors());
+
 app.use("/api/auth",UserAuthRoute)
 app.use("/api/user",UserRoute)
 app.use("/api/post",PostRoute)
